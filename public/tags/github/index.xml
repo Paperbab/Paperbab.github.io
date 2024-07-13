@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Github - Tag - </title>
+    <link>http://localhost:1313/tags/github.html</link>
+    <description>Github - Tag | </description>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 18 Dec 2022 19:15:22 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/github.html" rel="self" type="application/rss+xml" /><item>
+  <title>Github Pages&#43;Cloudflare部署指南</title>
+  <link>http://localhost:1313/posts/githubpages&#43;cloudflare.html</link>
+  <pubDate>Sun, 18 Dec 2022 19:15:22 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/githubpages&#43;cloudflare.html</guid>
+  <description><![CDATA[前言 前段时间自己用Github Pages搭了个Hexo博客，别问我为啥不用gitee，因为要实名，一直对要实名的东西不大信任，而且我有许多项目都放在github。。。我们家是电信网，天生对Github不友好，就连上Github都需要想尽办法，我的博客自然也很难连上，终于我忍不住啦！！！用cloudflare成功加速了我的博客
+准备 准备一个域名，我用的是在freenom上注册的免费域名，每年需要续一次费，有点心烦 然后设置一下Pages 这一步你可能会看到这个错误 先不管他，我们等会再解决
+设置域名解析 打开cloudflare，添加站点，输入你自己的域名，而不是你的github pages域名 接下来你可能需要添加NS服务器，我们按照cloudflare的提示找到NS 复制到域名提供商提供的修改NameServer入口（需要注意，部分域名提供商不会允许你自定义NS） 然后你需要ping一下你的Github Pages，得到Github Pages的IP 接下来在Cloudflare的“DNS”栏里添加DNS记录，推荐使用A记录，像我这样填就可以 然后转到Github重新验证一下名称服务器（NameServer）就行了！
+需要注意的 在github内点开Enforce HTTPS 然后再cloudflare中将加密模式改成完全或完全（严格），不然会导致重定向过多而打不开网页！ ]]></description>
+</item>
+</channel>
+</rss>

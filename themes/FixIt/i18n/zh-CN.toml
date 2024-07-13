@@ -15,7 +15,7 @@ quicklyUpgrade = "使用命令快速升级："
 [baseof]
 backToTop = "回到顶部"
 viewComments = "查看评论"
-noscript = "FixIt 主题在启用 JavaScript 的情况下效果最佳。"
+noscript = "该网站在启用 JavaScript 的情况下效果最佳。"
 # === baseof ===
 
 # === Taxonomy ===
@@ -126,6 +126,7 @@ expirationReminder = "本文最后更新于 {{ .Date }}，文中内容可能已�
 encryptedAbstract = "本文已加密，因此其原始内容不可见！"
 encryptedMessage = "请输入密码"
 password = "密码"
+enterBtn = "进入"
 encryptyAgain = "重新加密"
 relatedContent = "相关内容"
 

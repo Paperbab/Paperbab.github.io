@@ -1,70 +1,32 @@
 # FixIt Theme | Hugo
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/hugo-fixit/FixIt?style=flat)](https://github.com/hugo-fixit/FixIt/releases)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.112.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
+[![Hugo](https://img.shields.io/badge/Hugo-%5E0.123.0-ff4088?style=flat&logo=hugo)](https://gohugo.io/)
 [![License](https://img.shields.io/github/license/hugo-fixit/FixIt?style=flat)](/LICENSE)
 
 👉 English README | [简体中文说明](README.zh-cn.md)
 
-> [FixIt](https://github.com/hugo-fixit/FixIt) is a **clean**, **elegant** but **advanced** blog theme for [Hugo](https://gohugo.io/).
+[FixIt](https://github.com/hugo-fixit/FixIt) is a **clean**, **elegant** but **advanced** blog theme for [Hugo](https://gohugo.io/).
 
-It is based on the original [LoveIt Theme](https://github.com/dillonzq/LoveIt), [KeepIt Theme](https://github.com/Fastbyte01/KeepIt) and [LeaveIt Theme](https://github.com/liuzc/LeaveIt).
+It is based on the original [LoveIt Theme](https://github.com/dillonzq/LoveIt), [KeepIt Theme](https://github.com/Fastbyte01/KeepIt) and [LeaveIt Theme](https://github.com/liuzc/LeaveIt).[^1]
 
-The FixIt theme inherits the excellent features of these themes, and adds new features and optimizations on those basis. Please read [Why Choose FixIt](#why-choose-fixit) to learn more.
-
-![Hugo Theme FixIt](https://fixit.lruihao.cn/images/Apple-Devices-Preview.jpg)
+![Hugo Theme FixIt](https://fixit.lruihao.cn/images/apple-devices-preview.webp)
 
 ## Getting started
 
-Head to the [getting started page](http://fixit.lruihao.cn/documentation/getting-started/) or start with a template:
+1. [Installation](https://fixit.lruihao.cn/documentation/installation/)
+2. [Getting Started](https://fixit.lruihao.cn/documentation/getting-started/)
+3. [Content Management](https://fixit.lruihao.cn/documentation/content-management/)
+4. [Advanced Usage](https://fixit.lruihao.cn/documentation/advanced/)
 
-- [hugo-fixit/hugo-fixit-blog-git](https://github.com/hugo-fixit/hugo-fixit-blog-git)
-- [hugo-fixit/hugo-fixit-blog-go](https://github.com/hugo-fixit/hugo-fixit-blog-go)
+Alternatively, you can run the [documentation site](https://fixit.lruihao.cn/) locally. For more details, see [hugo-fixit/docs](https://github.com/hugo-fixit/docs).
 
-## [Documentation](https://fixit.lruihao.cn/categories/documentation/)
+## Template repository
 
-Head to this [documentation page](https://fixit.lruihao.cn/documentation/basics/) for a complete guidence to get started with the FixIt theme.
-
-Or run [Documentation Site](https://fixit.lruihao.cn) locally, see more details from [Contributing](#contributing).
-
-In addition, there is the [FixIt wiki](https://github.com/hugo-fixit/FixIt/wiki).
-
-## Migrate from LoveIt
-
-If you are currently using the LoveIt theme (or some other themes), it is very easy to migrate to FixIt.
-
-You can add this repo as a submodule of your site directory. Alternatively, you can install the theme in [other ways](https://fixit.lruihao.cn/documentation/basics/#install-theme).
-
-```bash
-git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
-```
-
-And later you can update the submodule in your site directory to the latest commit using this command:
-
-```bash
-git submodule update --remote --merge
-```
-
-Next, go to the `hugo.toml` and change the default theme to `FixIt`.
-
-```diff
-- theme = "LoveIt"
-+ theme = "FixIt"
-```
-
-Now the migration is finished and everything is ready 🎉
-
-## Why choose FixIt
-
-The FixIt theme inherits the excellent features of themes such as LoveIt, and adds new features and optimizations on those basis, as detailed in [Features](#features). In addition, the FixIt theme has the following advantages:
-
-- Complete Chinese and English official documentations
-- Community support: Theme official website, Discussions and official QQ group
-- Continuously and actively update
-- Constantly incorporate suggestions and ideas from all sides
-- Highly open theme customizable section
-
-In short, if you prefer the design language and freedom of the FixIt theme, and if you like to personalize your own themes as I do, the FixIt theme may be more suitable for you.
+- [hugo-fixit/hugo-fixit-start](https://github.com/hugo-fixit/hugo-fixit-start/generate)
+- [hugo-fixit/hugo-fixit-start1](https://github.com/hugo-fixit/hugo-fixit-start1/generate)
+- [hugo-fixit/docs](https://github.com/hugo-fixit/docs/generate)
+- [Lruihao/hugo-blog](https://github.com/Lruihao/hugo-blog/generate)
 
 ## Who used FixIt
 
@@ -128,7 +90,7 @@ To see this theme in action, here are some [live demo sites](https://fixit.lruih
 - **Interactive data visualization** shortcode supported by [ECharts](https://echarts.apache.org/)
 - **Mapbox** shortcode supported by [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js)
 - **Music player** shortcode supported by [APlayer](https://github.com/MoePlayer/APlayer) and [MetingJS](https://github.com/metowolf/MetingJS)
-- **Bilibili player** shortcode
+- **Bilibili player** and **Douyin player** shortcode
 - Kinds of **admonitions** shortcode
 - **Custom style** shortcode
 - **Custom script** shortcode
@@ -137,7 +99,12 @@ To see this theme in action, here are some [live demo sites](https://fixit.lruih
 - **Web Watermark** supported by [cell-watermark](https://github.com/Lruihao/watermark)
 - **Chinese typesetting** supported by [pangu.js](https://github.com/vinta/pangu.js)
 - Options to **cache remote image** locally
+- High **extensibility**
 - ...
+
+### Theme Components
+
+The FixIt theme balances **simplicity** and **extensibility** with extra [Hugo theme components](https://fixit.lruihao.cn/components/) for customization.
 
 ## Multilingual and i18n
 
@@ -156,13 +123,12 @@ FixIt supports the following languages:
 - Russian
 - Romanian
 - Vietnamese
+- Hindi
 - [Contribute with a new language](https://github.com/hugo-fixit/FixIt/pulls)
 
 [Languages Compatibility](https://fixit.lruihao.cn/documentation/basics/#language-compatibility)
 
 ## [Roadmap](https://github.com/hugo-fixit/FixIt/projects/1)
-
-## [Changelog](/CHANGELOG.md)
 
 ## Questions, ideas, bugs, pull requests
 
@@ -176,11 +142,11 @@ Make sure that you follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) while contrib
 
 **When contributing, please first discuss the change you wish to make via an issue on this repository before making the actual change**.
 
-## [Contributors](contributors.md)
-
 ## Acknowledgements
 
-<details open>
+Thanks to all the [contributors](https://github.com/hugo-fixit/FixIt/graphs/contributors) for their support!
+
+<details>
 <summary>Thanks to the authors of following resources included in the theme:</summary>
 
 - [normalize.css](https://github.com/necolas/normalize.css)
@@ -220,7 +186,7 @@ Make sure that you follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) while contrib
 
 </details>
 
-<details open>
+<details>
 <summary>The FixIt also draws on some features of the following projects, and thanks to their authors as well:</summary>
 
 - [DoIt](https://github.com/HEIGE-PCloud/DoIt)
@@ -234,15 +200,18 @@ FixIt is licensed under the **MIT** license. Check the [LICENSE file](LICENSE) f
 
 ## Author
 
-[Lruihao](https://github.com/Lruihao "Follow me on GitHub")
+Follow [Lruihao](https://github.com/Lruihao "Follow me on GitHub")
 
 ## Sponsor
 
-Giving me a Star 🌟 is already the greatest encouragement and support for me.\
-If you enjoy the theme, please consider buying me a coffee ☕️.
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/hugo-fixit/FixIt)
+
+If you enjoy the theme, please consider buying me a coffee ☕️. Thanks!
 
 - [PayPal](https://paypal.me/Lruihao)
 - [Alipay](images/alipay.jpg)
 - [Wechat](images/wechatpay.jpg)
 
-Thanks! ❤️
+Don't forget to leave a ⭐️ if you like this theme, thanks!
+
+[^1]: The theme name is interesting: "leave it, keep it, love it, fix it". Appears and leaves, loves but cannot keep. Doesn't it look like that damn love and BUG? 🤣

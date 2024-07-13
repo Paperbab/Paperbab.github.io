@@ -1,7 +1,8 @@
-{{- $params := .Scratch.Get "params" -}}
+{{- $params := partial "function/params.html" -}}
 {{- $cdn := .Scratch.Get "cdn" | default dict -}}
 {{- $fingerprint := .Scratch.Get "fingerprint" -}}
 {{- $config := (.Scratch.Get "this").config -}}
+{{- $config = dict "version" (.Scratch.Get "version") | merge $config -}}
 
 {{- /* Search */ -}}
 {{- if .Site.Params.search | and .Site.Params.search.enable -}}
@@ -70,11 +71,11 @@
 {{- end -}}
 
 {{- /* TypeIt */ -}}
-{{- with (.Scratch.Get "this").typeitMap -}}
-  {{- $typeit := $.Site.Params.typeit -}}
+{{- if .Store.Get "hasTyped" -}}
+  {{- $typeit := .Site.Params.typeit -}}
   {{- $source := $cdn.typeitJS | default "lib/typeit/index.umd.js" -}}
   {{- dict "Source" $source "Fingerprint" $fingerprint "Defer" true | dict "Scratch" $.Scratch "Data" | partial "scratch/script.html" -}}
-  {{- $config = dict "speed" $typeit.speed "cursorSpeed" $typeit.cursorSpeed "cursorChar" $typeit.cursorChar "duration" $typeit.duration "loop" $typeit.loop "data" . | dict "typeit" | merge $config -}}
+  {{- $config = dict "speed" $typeit.speed "cursorSpeed" $typeit.cursorSpeed "cursorChar" $typeit.cursorChar "duration" $typeit.duration "loop" $typeit.loop | dict "typeit" | merge $config -}}
 {{- end -}}
 
 {{- /* KaTeX */ -}}
@@ -114,15 +115,16 @@
 {{- end -}}
 
 {{- /* mermaid */ -}}
-{{- if (.Scratch.Get "this").mermaid -}}
-  {{- $source := $cdn.mermaidJS | default "lib/mermaid/mermaid.min.js" -}}
-  {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
-  {{- $mermaid := .Site.Params.mermaid -}}
-  {{- $config = dict "themes" $mermaid.themes | dict "mermaid" | merge $config -}}
+{{- if .Store.Get "hasMermaid" -}}
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    window.mermaid = mermaid;
+    window.mermaid.themes = {{ .Site.Params.mermaid.themes }};
+  </script>
 {{- end -}}
 
 {{- /* ECharts */ -}}
-{{- if (.Scratch.Get "this").echarts -}}
+{{- if .HasShortcode "echarts" -}}
   {{- $source := $cdn.echartsJS | default "lib/echarts/echarts.min.js" -}}
   {{- dict "Source" $source "Fingerprint" $fingerprint "Defer" true | dict "Scratch" .Scratch "Data" | partial "scratch/script.html" -}}
   {{- $lightTheme := resources.Get "lib/echarts/theme/light.yml" | transform.Unmarshal -}}
@@ -131,7 +133,7 @@
 {{- end -}}
 
 {{- /* Mapbox GL */ -}}
-{{- if (.Scratch.Get "this").mapbox -}}
+{{- if .HasShortcode "mapbox" -}}
   {{- $source := $cdn.mapboxGLCSS | default "lib/mapbox-gl/mapbox-gl.css" -}}
   {{- dict "Source" $source "Minify" true "Fingerprint" $fingerprint "Preload" true | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
   {{- $source = $cdn.mapboxGLJS | default "lib/mapbox-gl/mapbox-gl.js" -}}
@@ -141,7 +143,7 @@
 {{- end -}}
 
 {{- /* Music */ -}}
-{{- if (.Scratch.Get "this").music -}}
+{{- if .HasShortcode "music" -}}
   {{- /* APlayer */ -}}
   {{- $source := $cdn.aplayerCSS | default "lib/aplayer/APlayer.min.css" -}}
   {{- dict "Source" $source "Fingerprint" $fingerprint "Preload" true | dict "Scratch" .Scratch "Data" | partial "scratch/style.html" -}}
@@ -183,7 +185,7 @@
 {{- end -}}
 
 {{- /* Content Decryption */ -}}
-{{- $encryptPartial := (.Scratch.Get "this").encryptPartial -}}
+{{- $encryptPartial := .HasShortcode "fixit-encryptor" -}}
 {{- if $params.password | or $encryptPartial -}}
   {{- $cryptoCoreJS := $cdn.cryptoCoreJS | default "lib/crypto-js/core.js" -}}
   {{- $cryptoEncBase64JS := $cdn.cryptoEncBase64JS | default "lib/crypto-js/enc-base64.js" -}}
@@ -304,3 +306,6 @@
 {{- end -}}
 
 {{- partial "plugin/analytics.html" . -}}
+
+{{- /* Custom Assets */ -}}
+{{- block "custom-assets" . }}{{ end -}}

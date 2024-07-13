@@ -1,0 +1,47 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Tags - Tag - </title>
+    <link>http://localhost:1313/tags.html</link>
+    <description>Tags - Tag | </description>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 23 Jan 2024 18:53:28 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags.html" rel="self" type="application/rss+xml" /><item>
+  <title>日常</title>
+  <link>http://localhost:1313/tags/%E6%97%A5%E5%B8%B8.html</link>
+  <pubDate>Tue, 23 Jan 2024 18:53:28 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/tags/%E6%97%A5%E5%B8%B8.html</guid>
+  <description><![CDATA[]]></description>
+</item>
+<item>
+  <title>Hugo</title>
+  <link>http://localhost:1313/tags/hugo.html</link>
+  <pubDate>Tue, 06 Jun 2023 18:54:07 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/tags/hugo.html</guid>
+  <description><![CDATA[]]></description>
+</item>
+<item>
+  <title>ArchLinux</title>
+  <link>http://localhost:1313/tags/archlinux.html</link>
+  <pubDate>Fri, 03 Feb 2023 01:09:43 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/tags/archlinux.html</guid>
+  <description><![CDATA[]]></description>
+</item>
+<item>
+  <title>Cloudflare</title>
+  <link>http://localhost:1313/tags/cloudflare.html</link>
+  <pubDate>Sun, 18 Dec 2022 19:15:22 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/tags/cloudflare.html</guid>
+  <description><![CDATA[]]></description>
+</item>
+<item>
+  <title>Github</title>
+  <link>http://localhost:1313/tags/github.html</link>
+  <pubDate>Sun, 18 Dec 2022 19:15:22 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/tags/github.html</guid>
+  <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

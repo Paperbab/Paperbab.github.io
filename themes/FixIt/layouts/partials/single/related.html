@@ -1,9 +1,9 @@
 {{- /* Related Content */ -}}
 {{- /* https://gohugo.io/content-management/related/ */ -}}
-{{- $params := .Scratch.Get "params" -}}
+{{- $params := partial "function/params.html" -}}
 
 {{- if $params.related.enable | and (not $params.password) -}}
-  {{- $posts := where .Site.RegularPages "Type" "posts" -}}
+  {{- $posts := .Scratch.Get "mainSectionPages" -}}
   {{- if .Site.Params.page.hiddenFromRelated -}}
     {{- $posts = where $posts "Params.hiddenfromrelated" false -}}
   {{- else -}}
@@ -11,11 +11,13 @@
   {{- end -}}
   {{- $related := $posts.Related . | first ($params.related.count | default 5) -}}
   {{- with $related -}}
+    <hr class="awesome-hr" />
     <h2 id="see-also">{{ T "single.relatedContent" }}</h2>
     <ul>
       {{- range $i, $p := . -}}
+        {{- $title := title .LinkTitle -}}
         <li>
-          <a href="{{ .RelPermalink }}" title="{{ .LinkTitle }}">{{ .LinkTitle }}</a>
+          <a href="{{ .RelPermalink }}" title="{{ $title }}">{{ $title }}</a>
           {{- with .HeadingsFiltered -}}
             <ul>
               {{- range . -}}

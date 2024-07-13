@@ -15,7 +15,7 @@ quicklyUpgrade = "La mise à jour rapide utilise la commande: "
 [baseof]
 backToTop = "Retour en Haut"
 viewComments = "Afficher les Commentaires"
-noscript = "Le thème FixIt fonctionne mieux quand JavaScript est activé."
+noscript = "Ce site Web fonctionne mieux quand JavaScript est activé."
 # === baseof ===
 
 # === Taxonomy ===
@@ -128,6 +128,7 @@ expirationReminder = "Cet article a été mis à jour pour la dernière fois le 
 encryptedAbstract = "Cet article a été chiffré, son contenu n'est donc pas lisible!"
 encryptedMessage = "Entrer le mot de passe"
 password = "Mot de passe"
+enterBtn = "Entrer"
 encryptyAgain = "Chiffrer à nouveau"
 relatedContent = "Contenu lié"
 

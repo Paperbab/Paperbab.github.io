@@ -1,0 +1,83 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>All Posts - </title>
+    <link>http://localhost:1313/posts.html</link>
+    <description>All Posts | </description>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 23 Jan 2024 18:53:28 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts.html" rel="self" type="application/rss+xml" /><item>
+  <title>对形码的一些思考与学习指南</title>
+  <link>http://localhost:1313/posts/aboutxingma.html</link>
+  <pubDate>Tue, 23 Jan 2024 18:53:28 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/aboutxingma.html</guid>
+  <description><![CDATA[前记： 近期因为某手机厂商输入法明文传输用户输入记录对本地输入法有了兴趣，但在没有云连接的情况下拼音的效果总是不尽人意，进而学习形码，有所感悟，写下此文。
+节约时间，直如主题
+什么是形码？ 形码是汉字输入计算机的编码类型之一，根据汉字的字形进行编码，有效避免了按发音输入的缺陷。形码的编码方式包括笔画编码、部首编码、四角编码等，它们依据汉字的笔画或偏旁部首等部件的代码，按照一定的序列规则组成编码。形码输入法简单、形象、方便和快捷，没有采用其他辅助编码措施，使得汉字输入能够像外文字母输入一样简单快捷。同时，形码的重码率也相对较低，为实现汉字的盲打提供了可能，成为专业人员的首选汉字输入码。
+形码的优势 精准，盲打，快
+作者后记：说得不是很精准，”快“并不是形码独有的优势，在日常中，拼音、注音等也是可以的。
+五笔只在非长句、无需联想的情况下才有明显速度优势。
+形码的劣势 不会写的字永远不会打，你可能会意识到原来自己那么多字不会写。
+为什么学形码？ 每个人学形码的原因各不相同。
+也许各位在使用拼音时会遇到有的字需要频繁翻候选才能找到，尤其是在录入名字时会被折腾到气极功心最后怒摔键盘。
+拼音在脱离了长句或流行短语时才能发挥最大的优势，虽说现在的拼音输入法在各家公司下的云词库下已经足够好用，但打单字或无法联想的词时翻候选是非常痛苦的。
+但使用形码输入方案时就能体会到，想输入什么屏幕就出现什么，快速且精准的打出想要的字。
+并且形码输入方案无需网络连接云词库，所以可以使用本地输入法避免隐私泄漏问题 点名批评某星
+多久可以流畅打字？ 以形码中最流行的五笔输入方案来说：最少两个月能够打字，半年恢复拼音速度（前提是每天至少三小时练习）
+学哪种形码？ 如果想要简单、好学，建议学习小鹤双拼方案后学习小鹤音形
+如果想要真正步入形码大家庭，建议学习五笔中的“86版五笔”
+五笔篇 如果要在多个五笔方案中选一个最好的，那一定不是“86五笔”，但为什么我会推荐“86五笔”，主要有以下两个原因：
+“86五笔”是目前最流行的五笔方案 “86五笔”是实质上的五笔输入方案标准，或者说，是形码输入方案的标准 为什么“86五笔”是最流行的？ 因为此方案是1986年创造，而在此之前没有一个真正好用的，在电脑上输入汉字的方法，所以86五笔一经诞生就风靡全国
+为什么“86五笔”是形码输入方案标准？ 有两点
+“86五笔”问世时间太早了，用户基数非常的多，且因版权问题各公司使用此方案也非常多，没用理由采用别的方案 后面的形码方案问世后，86五笔和智能拼音已经完全普及，没有理由再学习别的方案 使用什么五笔输入法？ 目前五笔输入法有很多，Windows10+可以使用微软五笔，Mac有自带五笔输入法，移动端百度输入法、搜狗输入法、iOS键盘都支持五笔方案
+小鹤篇 这个方案十分有趣，是拼音（双拼）+ 字根的形式，简单好学
+什么是双拼？ 我们先来复习下拼音。绝大多数拼音都是由一个声母加上一个韵母组成（少数没有声母，仅由韵母组成）。
+声母：
+b p m f d t n l
+g k h j q x
+zh ch sh r z c s
+w y
+韵母：
+a o e ai ei ao ou an en ang eng ong]]></description>
+</item>
+<item>
+  <title>用Netlify搭建Hugo</title>
+  <link>http://localhost:1313/posts/buildablogwithnetlify.html</link>
+  <pubDate>Tue, 06 Jun 2023 18:54:07 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/buildablogwithnetlify.html</guid>
+  <description><![CDATA[前言 众所周知，我用hexo在github pages上搭建了一个博客，但是我发现速度并不尽人意，所以我用Netlify作为我的博客sv
+另外，看见hugo这个hexo的好用的替代品，想试一试，所以顺便换成了hugo玩玩
+（另外，之前的那个博客图片挂了）
+开始！ Hugo的快速开始在这里，各位可以自己去看看
+Hugo不像Hexo，可以用自己的指令去部署和上传到Github，所以需要自己git push，不过其实也没有难到哪里去
+Push完之后，在Netlify里添加新网站，选择Import an existing project 然后选择Deplay with Github 认证完成后，选择你需要部署的仓库，我这以blog为例 然后按需填就行 部署完毕后，设置一下域名，我这里用Cloudflare代理了，Netlify的CDN速度太慢了 到这里就好了，从Hexo转到Hugo没有什么压力，关于写文章和Hexo没有区别的~
+又可以继续摸鱼了]]></description>
+</item>
+<item>
+  <title>ArchLinux安装记录（2023.2.3）</title>
+  <link>http://localhost:1313/posts/installarchlinux2023-2-3.html</link>
+  <pubDate>Fri, 03 Feb 2023 01:09:43 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/installarchlinux2023-2-3.html</guid>
+  <description><![CDATA[前言 对安装Linux，我已经想过写教程很久了，一直没有时间，趁过年有空趁机写一篇，时间仓促，如有差错请敬请指正
+安装前的准备 一个大于4G的，最好是USB3.0的U盘 一台x86_64的电脑，且用的是主流硬件 尽量不用英伟达显卡 先在 https://archlinux.org/download/ 下载一个Arch镜像，也可以在各大国内镜像站下载 Arch Download 用工具烧录到U盘，推荐使用rufus或ventoy，然后进入bios选择第一启动项（截图丢失）
+如果使用的是UEFI，请将安全启动关闭！
+接着会看到这样的界面： Live grub 选择第一项回车，进入Live环境，在这里我们可以维护系统，类似于WindowsPE Live 恭喜你！已经进入了Live环境
+正式安装 事实上，Arch安装并不难，只需要理解每一步是做什么的，我跪在这里拆解并解释每一步是干什么的
+连接网络 先让我们连上网络，输入以下命令
+iwctl //会进入联网模式 [iwd]# help # 可以查看帮助 [iwd]# device list # 列出你的无线设备名称，一般以wlan0命名 [iwd]# station wlan0 scan # 扫描当前环境下的网络 [iwd]# station wlan0 get-networks # 会显示你扫描到的所有网络 [iwd]# station wlan0 connect &lt;Wifi名&gt; password:输入密码 [iwd]# exit # 退出当前模式，回到安装模式确认一下有没有成功连上网络
+ping bilibili.com切换镜像源 为了速战速决，我直接使用工具来自动切换镜像源各位也可以在各大镜像源寻找他们的Arch镜像，保存在 /etc/pacman.d/mirrorlist
+reflector --country China --age 72 --sort rate --protocol https --save /etc/pacman.]]></description>
+</item>
+<item>
+  <title>Github Pages&#43;Cloudflare部署指南</title>
+  <link>http://localhost:1313/posts/githubpages&#43;cloudflare.html</link>
+  <pubDate>Sun, 18 Dec 2022 19:15:22 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/githubpages&#43;cloudflare.html</guid>
+  <description><![CDATA[前言 前段时间自己用Github Pages搭了个Hexo博客，别问我为啥不用gitee，因为要实名，一直对要实名的东西不大信任，而且我有许多项目都放在github。。。我们家是电信网，天生对Github不友好，就连上Github都需要想尽办法，我的博客自然也很难连上，终于我忍不住啦！！！用cloudflare成功加速了我的博客
+准备 准备一个域名，我用的是在freenom上注册的免费域名，每年需要续一次费，有点心烦 然后设置一下Pages 这一步你可能会看到这个错误 先不管他，我们等会再解决
+设置域名解析 打开cloudflare，添加站点，输入你自己的域名，而不是你的github pages域名 接下来你可能需要添加NS服务器，我们按照cloudflare的提示找到NS 复制到域名提供商提供的修改NameServer入口（需要注意，部分域名提供商不会允许你自定义NS） 然后你需要ping一下你的Github Pages，得到Github Pages的IP 接下来在Cloudflare的“DNS”栏里添加DNS记录，推荐使用A记录，像我这样填就可以 然后转到Github重新验证一下名称服务器（NameServer）就行了！
+需要注意的 在github内点开Enforce HTTPS 然后再cloudflare中将加密模式改成完全或完全（严格），不然会导致重定向过多而打不开网页！ ]]></description>
+</item>
+</channel>
+</rss>

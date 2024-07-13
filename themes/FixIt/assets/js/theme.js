@@ -3,7 +3,6 @@ import Util from './util';
 class FixIt {
   constructor() {
     this.config = window.config;
-    this.data = this.config.data || [];
     this.isDark = document.body.dataset.theme === 'dark';
     this.util = new Util();
     this.newScrollTop = this.util.getScrollTop();
@@ -49,8 +48,8 @@ class FixIt {
     });
   }
 
-  initTwemoji() {
-    this.config.twemoji && twemoji.parse(document.body);
+  initTwemoji(target = document.body) {
+    this.config.twemoji && twemoji.parse(target);
   }
 
   initMenu() {
@@ -94,7 +93,7 @@ class FixIt {
         this.isDark = !this.isDark;
         window.localStorage?.setItem('theme', this.isDark ? 'dark' : 'light');
         for (let event of this.switchThemeEventSet) {
-          event();
+          event(this.isDark);
         }
       }, false);
     });
@@ -234,7 +233,7 @@ class FixIt {
                 const results = {};
                 window._index.search(query).forEach(({ item, refIndex, matches }) => {
                   let title = item.title;
-                  let content = item.content;
+                  let content = item.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
                   matches.forEach(({ indices, value, key }) => {
                     if (key === 'content') {
                       let offset = 0;
@@ -334,8 +333,8 @@ class FixIt {
     }
   }
 
-  initDetails() {
-    this.util.forEach(document.getElementsByClassName('details'), ($details) => {
+  initDetails(target = document) {
+    this.util.forEach(target.getElementsByClassName('details'), ($details) => {
       const $summary = $details.querySelector('.details-summary');
       $summary.addEventListener('click', () => {
         $details.classList.toggle('open');
@@ -345,7 +344,8 @@ class FixIt {
 
   initLightGallery() {
     if (this.config.lightgallery) {
-      lightGallery(document.getElementById('content'), {
+      this.lg && this.lg.destroy(true);
+      this.lg = lightGallery(document.getElementById('content'), {
         plugins: [lgThumbnail, lgZoom],
         selector: '.lightgallery',
         speed: 400,
@@ -377,7 +377,8 @@ class FixIt {
       $preChroma.parentElement.replaceChild($chroma, $preChroma);
       $td.appendChild($preChroma);
     });
-    this.util.forEach(document.querySelectorAll('.highlight > .chroma'), ($chroma) => {
+    this.util.forEach(document.querySelectorAll('.highlight > .chroma:not([data-init])'), ($chroma) => {
+      $chroma.dataset.init = 'true';
       const $codeElements = $chroma.querySelectorAll('pre.chroma > code');
       if ($codeElements.length) {
         const $code = $codeElements[$codeElements.length - 1];
@@ -386,8 +387,13 @@ class FixIt {
         // code title
         const $title = document.createElement('span');
         $title.classList.add('code-title');
-        const hlAttrs = this.data[$chroma.parentNode.id];
-        $title.insertAdjacentHTML('afterbegin', `<i class="arrow fa-solid fa-chevron-right fa-fw" aria-hidden="true"></i><span class="title-inner">${hlAttrs?.title ?? ''}</span>`);
+        // insert code title inner
+        $title.insertAdjacentHTML(
+          'afterbegin',
+          $chroma.parentNode.title
+            ? `<i class="arrow fa-solid fa-chevron-right fa-fw" aria-hidden="true"></i><span class="title-inner">${$chroma.parentNode.title}</span>`
+            : '<i class="arrow fa-solid fa-chevron-right fa-fw" aria-hidden="true"></i>'
+        );
         $title.addEventListener('click', () => {
           $chroma.classList.toggle('open');
         }, false);
@@ -451,8 +457,8 @@ class FixIt {
     });
   }
 
-  initTable() {
-    this.util.forEach(document.querySelectorAll('.content table'), ($table) => {
+  initTable(target = document) {
+    this.util.forEach(target.querySelectorAll('.content table'), ($table) => {
       const $wrapper = document.createElement('div');
       $wrapper.className = 'table-wrapper';
       $table.parentElement.replaceChild($wrapper, $table);
@@ -544,30 +550,38 @@ class FixIt {
     }, false);
   }
 
-  initMath() {
+  initMath(target = document.body) {
     if (this.config.math) {
-      renderMathInElement(document.body, this.config.math);
+      renderMathInElement(target, this.config.math);
     }
   }
 
-  switchMermaidTheme(theme) {
-    const $mermaidElements = document.getElementsByClassName('mermaid');
-    if ($mermaidElements.length) {
-      // TODO perf
-      const themes = this.config.mermaid.themes ?? ['default', 'dark', 'neutral'];
-      mermaid.initialize({ startOnLoad: false, theme: theme ?? (this.isDark ? themes[1] : themes[0]), securityLevel: 'loose' });
-      this.util.forEach($mermaidElements, $mermaid => {
-        mermaid.render('svg-' + $mermaid.id, this.data[$mermaid.id], svgCode => {
-          $mermaid.innerHTML = svgCode;
-        }, $mermaid);
-      });
-    }
-  };
-
   initMermaid() {
-    this.switchMermaidTheme();
-    this.switchThemeEventSet.add(() => { this.switchMermaidTheme(); });
-    this.beforeprintEventSet.add(() => { this.switchMermaidTheme('neutral'); });
+    if (!window.mermaid?.initialize) {
+      return;
+    }
+    const _initializeAndRun = () => {
+      const themes = window.mermaid.themes ?? ['default', 'dark'];
+      window.mermaid.initialize({
+        securityLevel: 'loose',
+        startOnLoad: false,
+        theme: this.isDark ? themes[1] : themes[0],
+      });
+      window.mermaid.run()
+    }
+    _initializeAndRun()
+    this.switchThemeEventSet.add(() => {
+      // Reinitialize and run mermaid when theme changes.
+      this.util.forEach(document.querySelectorAll('.mermaid[data-processed]'), ($mermaid) => {
+        $mermaid.dataset.processed = ''
+        $mermaid.innerHTML = ''
+        $mermaid.appendChild($mermaid.nextElementSibling.content.cloneNode(true))
+      })
+      _initializeAndRun()
+    });
+    this.beforeprintEventSet.add(() => { 
+      // Set the theme to neutral when printing.
+    });
   }
 
   initEcharts() {
@@ -582,11 +596,16 @@ class FixIt {
         this._echartsArr[i].dispose();
       }
       this._echartsArr = [];
+      const stagingDOM = this.util.getStagingDOM()
       this.util.forEach(document.getElementsByClassName('echarts'), ($echarts) => {
-        const chart = echarts.init($echarts, this.isDark ? 'dark' : 'light', { renderer: 'svg' });
-        chart.setOption(JSON.parse(this.data[$echarts.id]));
-        this._echartsArr.push(chart);
+        if ($echarts.nextElementSibling.tagName === 'TEMPLATE') {
+          const chart = echarts.init($echarts, this.isDark ? 'dark' : 'light', { renderer: 'svg' });
+          stagingDOM.stage($echarts.nextElementSibling.content.cloneNode(true));
+          chart.setOption(stagingDOM.contentAsJson());
+          this._echartsArr.push(chart);
+        }
       });
+      stagingDOM.destroy();
     });
     this.switchThemeEventSet.add(this._echartsOnSwitchTheme);
     this._echartsOnSwitchTheme();
@@ -600,11 +619,13 @@ class FixIt {
 
   initMapbox() {
     if (this.config.mapbox) {
-      mapboxgl.accessToken = this.config.mapbox.accessToken;
-      mapboxgl.setRTLTextPlugin(this.config.mapbox.RTLTextPlugin);
-      this._mapboxArr = this._mapboxArr || [];
-      this.util.forEach(document.getElementsByClassName('mapbox'), ($mapbox) => {
-        const { lng, lat, zoom, lightStyle, darkStyle, marked, navigation, geolocate, scale, fullscreen } = this.data[$mapbox.id];
+      if (!mapboxgl.accessToken) {
+        mapboxgl.accessToken = this.config.mapbox.accessToken;
+        mapboxgl.setRTLTextPlugin(this.config.mapbox.RTLTextPlugin);
+        this._mapboxArr = this._mapboxArr || [];
+      }
+      this.util.forEach(document.querySelectorAll('.mapbox:empty'), ($mapbox) => {
+        const { lng, lat, zoom, lightStyle, darkStyle, marked, navigation, geolocate, scale, fullscreen } = JSON.parse($mapbox.dataset.options);
         const mapbox = new mapboxgl.Map({
           container: $mapbox,
           center: [lng, lat],
@@ -643,7 +664,7 @@ class FixIt {
       this._mapboxOnSwitchTheme = this._mapboxOnSwitchTheme || (() => {
         this.util.forEach(this._mapboxArr, (mapbox) => {
           const $mapbox = mapbox.getContainer();
-          const { lightStyle, darkStyle } = this.data[$mapbox.id];
+          const { lightStyle, darkStyle } = JSON.parse($mapbox.dataset.options);
           mapbox.setStyle(this.isDark ? darkStyle : lightStyle);
           mapbox.addControl(new MapboxLanguage());
         });
@@ -652,25 +673,45 @@ class FixIt {
     }
   }
 
-  initTypeit() {
+  initTypeit(target = document) {
     if (this.config.typeit) {
       const typeitConfig = this.config.typeit;
       const speed = typeitConfig.speed || 100;
       const cursorSpeed = typeitConfig.cursorSpeed || 1000;
       const cursorChar = typeitConfig.cursorChar || '|';
       const loop = typeitConfig.loop ?? false;
-      Object.values(typeitConfig.data).forEach((group) => {
+      // divide them into different groups according to the data-group attribute value of the element
+      // results in an object like {group1: [ele1, ele2], group2: [ele3, ele4]}
+      const typeitElements = target.querySelectorAll('.typeit')
+      const groupMap = Array.from(typeitElements).reduce((acc, ele) => {
+        const group = ele.dataset.group || ele.id || Math.random().toString(36).substring(2);
+        acc[group] = acc[group] || [];
+        acc[group].push(ele);
+        return acc;
+      }, {});
+      const stagingDOM = this.util.getStagingDOM()
+
+      Object.values(groupMap).forEach((group) => {
         const typeone = (i) => {
-          const id = group[i];
-          const shortcodeLoop = document.querySelector(`#${id}`).parentElement.dataset.loop;
-          const instance = new TypeIt(`#${id}`, {
-            strings: this.data[id],
+          const typeitElement = group[i];
+          const singleLoop = typeitElement.dataset.loop;
+          stagingDOM.stage(typeitElement.querySelector('template').content.cloneNode(true));
+          // for shortcodes usage
+          let targetEle = typeitElement.firstElementChild
+          // for system elements usage
+          if (typeitElement.firstElementChild.tagName === 'TEMPLATE') {
+            typeitElement.innerHTML = '';
+            targetEle = typeitElement
+          }
+          // create a new instance of TypeIt for each element
+          const instance = new TypeIt(targetEle, {
+            strings: stagingDOM.$el.querySelector('pre')?.innerHTML || stagingDOM.contentAsHtml(),
             speed: speed,
             lifeLike: true,
             cursorSpeed: cursorSpeed,
             cursorChar: cursorChar,
             waitUntilVisible: true,
-            loop: shortcodeLoop ? JSON.parse(shortcodeLoop) : loop,
+            loop: singleLoop ? JSON.parse(singleLoop) : loop,
             afterComplete: () => {
               if (i === group.length - 1) {
                 if (typeitConfig.duration >= 0) {
@@ -687,6 +728,7 @@ class FixIt {
         };
         typeone(0);
       });
+      stagingDOM.destroy();
     }
   }
 
@@ -813,7 +855,7 @@ class FixIt {
       const giscusConfig = this.config.comment.giscus;
       this._giscusOnSwitchTheme = this._giscusOnSwitchTheme || (() => {
         const message = { setConfig: { theme: this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme }};
-        document.querySelector('.giscus-frame')?.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        document.querySelector('.giscus-frame')?.contentWindow.postMessage({ giscus: message }, giscusConfig.origin);
       });
       this.switchThemeEventSet.add(this._giscusOnSwitchTheme);
       this.giscus2parentMsg = window.addEventListener('message', (event) => {
@@ -926,12 +968,28 @@ class FixIt {
         this.initEcharts();
         this.initTypeit();
         this.initMapbox();
-        this.util.forEach(document.querySelectorAll('.encrypted-hidden'), ($element) => {
-          $element.classList.replace('encrypted-hidden', 'decrypted-shown');
-        });
         this.initToc();
         this.initTocListener();
         this.initPangu();
+        this.util.forEach(document.querySelectorAll('.encrypted-hidden'), ($element) => {
+          $element.classList.replace('encrypted-hidden', 'decrypted-shown');
+        });
+      },
+      partialDecrypted: ($content) => {
+        this.initTwemoji($content);
+        this.initDetails($content);
+        this.initLightGallery();
+        this.initHighlight();
+        this.initTable($content);
+        this.initMath($content);
+        this.initMermaid();
+        this.initEcharts();
+        this.initTypeit($content);
+        this.initMapbox();
+        this.initPangu();
+        this.util.forEach($content.querySelectorAll('.encrypted-hidden'), ($element) => {
+          $element.classList.replace('encrypted-hidden', 'decrypted-shown');
+        });
       },
       reset: () => {
         this.util.forEach(document.querySelectorAll('.decrypted-shown'), ($element) => {
@@ -941,6 +999,9 @@ class FixIt {
     });
     if (this.config.encryption?.shortcode) {
       this.decryptor.addEventListener('decrypted', () => {
+        this.decryptor.initShortcodes();
+      })
+      this.decryptor.addEventListener('partial-decrypted', () => {
         this.decryptor.initShortcodes();
       })
       this.decryptor.initShortcodes();
@@ -979,9 +1040,9 @@ class FixIt {
       return;
     }
     window.addEventListener('beforeunload', () => {
-      window.localStorage?.setItem(`fixit-bookmark/#${location.pathname}`, this.util.getScrollTop());
+      window.sessionStorage?.setItem(`fixit-bookmark/#${location.pathname}`, this.util.getScrollTop());
     });
-    const scrollTop = Number(window.localStorage?.getItem(`fixit-bookmark/#${location.pathname}`));
+    const scrollTop = Number(window.sessionStorage?.getItem(`fixit-bookmark/#${location.pathname}`));
     // If the page opens with a specific hash, just jump out
     if (scrollTop && location.hash === '') {
       window.scrollTo({ 
@@ -1027,7 +1088,6 @@ class FixIt {
     const $fixedButtons = document.querySelector('.fixed-buttons');
     const $backToTop = document.querySelector('.back-to-top');
     const $readingProgressBar = document.querySelector('.reading-progress-bar');
-    let scrollTimer = void 0;
     if (document.body.dataset.headerDesktop === 'auto') {
       $headers.push(document.getElementById('header-desktop'));
     }
@@ -1046,12 +1106,6 @@ class FixIt {
       const $mask = document.getElementById('mask');
       this.newScrollTop = this.util.getScrollTop();
       const scroll = this.newScrollTop - this.oldScrollTop;
-      // body scrollbar style
-      document.body.toggleAttribute('data-scroll', true);
-      scrollTimer && window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(() => {
-        document.body.toggleAttribute('data-scroll');
-      }, 500);
       // header animation
       this.util.forEach($headers, ($header) => {
         if (scroll > ACCURACY) {
@@ -1101,7 +1155,6 @@ class FixIt {
             event();
           }
           this.initToc();
-          this.switchMermaidTheme();
           this.initSearch();
 
           const isMobile = this.util.isMobile()
@@ -1142,7 +1195,8 @@ class FixIt {
     try {
       if (this.config.encryption) {
         this.initFixItDecryptor();
-      } else if (!this.config.encryption?.all) {
+      }
+      if (!this.config.encryption?.all) {
         this.initTwemoji();
         this.initDetails();
         this.initLightGallery();

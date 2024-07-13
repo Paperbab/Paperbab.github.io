@@ -8,15 +8,14 @@
       <a href="{{ $homeRelPermalink }}" title="{{ .Site.Title }}">
         {{- with .Site.Params.header.title -}}
           {{- with .logo -}}
-            {{- dict "Src" . "Class" "logo" "Alt" $.Site.Title | partial "plugin/image.html" -}}
+            {{- dict "Src" . "Class" "logo" "Alt" $.Site.Title "Width" 26 "Height" 26 | partial "plugin/image.html" -}}
           {{- end -}}
           {{- with .pre -}}
             <span class="header-title-pre">{{ . | safeHTML }}</span>
           {{- end -}}
           {{- if .typeit -}}
-            {{- $id := dict "Content" .name "Scratch" $.Scratch "Id" "typeit-header-desktop" | partial "function/id.html" -}}
-            <span id="{{ $id }}" class="typeit"></span>
-            {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
+            {{- $.Store.Set "hasTyped" true -}}
+            <span class="typeit"><template>{{ .name | default $.Site.Title }}</template></span>
           {{- else -}}
             <span class="header-title-text">{{ .name | default $.Site.Title }}</span>
           {{- end -}}
@@ -29,9 +28,8 @@
       </a>
       {{- with .Site.Params.header.subtitle -}}
         {{- if .typeit -}}
-          {{- $id := dict "Content" .name "Scratch" $.Scratch "Id" "typeit-header-subtitle-desktop" | partial "function/id.html" -}}
-          <span id="{{ $id }}" class="typeit header-subtitle"></span>
-          {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
+        {{- $.Store.Set "hasTyped" true -}}
+          <span class="typeit header-subtitle"><template>{{ .name }}</template></span>
         {{- else -}}
           <span class="header-subtitle">{{ .name }}</span>
         {{- end -}}
@@ -125,7 +123,7 @@
                     </li>
                   {{- end -}}
                 {{- end -}}
-              {{- else if gt (len .AllTranslations) 1 -}}
+              {{- else if .IsTranslated -}}
                 {{- range .AllTranslations -}}
                   {{- if ne .Lang $.Lang -}}
                     <li class="menu-item">
@@ -158,15 +156,14 @@
         <a href="{{ $homeRelPermalink }}" title="{{ .Site.Title }}">
           {{- with .Site.Params.header.title -}}
             {{- with .logo -}}
-              {{- dict "Src" . "Class" "logo" | partial "plugin/image.html" -}}
+              {{- dict "Src" . "Class" "logo" "Alt" $.Site.Title "Width" 26 "Height" 26 | partial "plugin/image.html" -}}
             {{- end -}}
             {{- with .pre -}}
               <span class="header-title-pre">{{ . | safeHTML }}</span>
             {{- end -}}
             {{- if .typeit -}}
-              {{- $id := dict "Content" .name "Scratch" $.Scratch "Id" "typeit-header-title-mobile" | partial "function/id.html" -}}
-              <span id="{{ $id }}" class="typeit"></span>
-              {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
+              {{- $.Store.Set "hasTyped" true -}}
+              <span class="typeit"><template>{{ .name | default $.Site.Title }}</template></span>
             {{- else -}}
               <span class="header-title-text">{{ .name | default $.Site.Title }}</span>
             {{- end -}}
@@ -179,9 +176,8 @@
         </a>
         {{- with .Site.Params.header.subtitle -}}
           {{- if .typeit -}}
-            {{- $id := dict "Content" .name "Scratch" $.Scratch "Id" "typeit-header-subtitle-mobile" | partial "function/id.html" -}}
-            <span id="{{ $id }}" class="typeit header-subtitle"></span>
-            {{- dict $id (slice $id) | dict "typeitMap" | merge ($.Scratch.Get "this") | $.Scratch.Set "this" -}}
+            {{- $.Store.Set "hasTyped" true -}}
+            <span class="typeit header-subtitle"><template>{{ .name }}</template></span>
           {{- else -}}
             <span class="header-subtitle">{{- .name -}}</span>
           {{- end -}}

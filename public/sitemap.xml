@@ -1,0 +1,19 @@
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  ><url>
+      <loc>http://localhost:1313/</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/categories.html</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/posts.html</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/tags.html</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/posts/aboutxingma.html</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/tags/%E6%97%A5%E5%B8%B8.html</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/categories/%E6%97%A5%E5%B8%B8.html</loc><lastmod>2024-01-23T18:53:28&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/tags/hugo.html</loc><lastmod>2023-06-06T18:54:07&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/categories/%E6%88%91%E7%9A%84%E5%BB%BA%E7%AB%99%E5%8E%86%E7%A8%8B.html</loc><lastmod>2023-06-06T18:54:07&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/posts/buildablogwithnetlify.html</loc><lastmod>2023-06-06T18:54:07&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/tags/archlinux.html</loc><lastmod>2023-02-03T01:09:43&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/posts/installarchlinux2023-2-3.html</loc><lastmod>2023-02-03T01:09:43&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/tags/cloudflare.html</loc><lastmod>2022-12-18T19:15:22&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/tags/github.html</loc><lastmod>2022-12-18T19:15:22&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url><url>
+      <loc>http://localhost:1313/posts/githubpages&#43;cloudflare.html</loc><lastmod>2022-12-18T19:15:22&#43;08:00</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url></urlset>

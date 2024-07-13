@@ -775,7 +775,7 @@ baseURL = "https://www.fanka.eu.org"
   # FixIt 0.2.14 | NEW GitHub banner in the top-right or top-left corner
   [params.githubCorner]
     enable = true
-    permalink = "https://github.com/hugo-fixit/FixIt"
+    permalink = "https://github.com/paperbab/blog"
     title = "在Github上查看源码"
     position = "right" # ["left", "right"]
 
